@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Apply Tailwind styles to react-select components */
+.react-select__control {
+    @apply w-full h-full border border-stroke rounded-md bg-transparent px-3 py-1.5 text-black dark:border-strokedark dark:bg-boxdark dark:text-white;
+  }
+  
+  .react-select__menu {
+    @apply border border-stroke rounded-md bg-white dark:bg-boxdark;
+  }
+  
+  .react-select__option {
+    @apply text-black dark:text-white;
+  }
+  
+  .react-select__option--is-selected {
+    @apply bg-primary text-white;
+  }
+  
+  .react-select__placeholder {
+    @apply text-graydark dark:text-gray-2;
+  }
+  
+  .react-select__single-value {
+    @apply text-black dark:text-white;
+  }
+  
