@@ -1,197 +1,268 @@
-import React, {useState} from 'react';
-import {
-  format,
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval,
-  startOfWeek,
-  endOfWeek,
-  addMonths,
-  subMonths,
-} from 'date-fns';
-
-import {FaAngleLeft, FaAngleRight} from 'react-icons/fa6';
-// import {useSearchEvents} from '@/lib/react-query/queriesAndMutations/event';
-// import {getYearAndMonth, incrementUntilTarget} from '@/utils/utilities';
-import {useNavigate} from '@tanstack/react-router';
-
-type day = number;
-
-interface IEventTypes {
-  EventID: string;
-  StartDate: string;
-  EndDate: string;
-  EventName: string;
-  days: day[];
-}
-
+import React from 'react';
 const Calendar = () => {
-  const navigate = useNavigate();
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const startOfMonthDate = startOfMonth(currentMonth);
-  const endOfMonthDate = endOfMonth(currentMonth);
-  const startWeekDate = startOfWeek(startOfMonthDate);
-  const endWeekDate = endOfWeek(endOfMonthDate);
-
-  const days = eachDayOfInterval({start: startWeekDate, end: endWeekDate});
-
-  const handlePrevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-  };
-
-  const handleNextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-  };
-
-  // const {data: eventResponse} = useSearchEvents({
-  //   query: '',
-  // });
-
-  // const loadEventDates = eventResponse?.data?.events
-  //   ?.filter(
-  //     (eventDates: {StartDate: string; EndDate: string}) =>
-  //       getYearAndMonth(eventDates.StartDate) ===
-  //       getYearAndMonth(String(currentMonth)),
-  //   )
-  //   .map((events: IEventTypes) => ({
-  //     EventID: events.EventID,
-  //     StartDate: events.StartDate,
-  //     EndDate: events.EndDate,
-  //     EventName: events.EventName,
-  //     days: incrementUntilTarget(
-  //       parseInt(format(events.StartDate, 'd')),
-  //       parseInt(format(events.EndDate, 'd')),
-  //     ),
-  //   }));
-
-  const mockEvents: IEventTypes[] = [
-    {
-      EventID: '1',
-      StartDate: '2024-09-18',
-      EndDate: '2024-09-20',
-      EventName: 'Conference Event',
-      days: [18, 19, 20],
-    },
-    {
-      EventID: '2',
-      StartDate: '2024-09-22',
-      EndDate: '2024-09-23',
-      EventName: 'Music Concert',
-      days: [22, 23],
-    },
-    {
-      EventID: '3',
-      StartDate: '2024-09-25',
-      EndDate: '2024-09-27',
-      EventName: 'Art Exhibition',
-      days: [25, 26, 27],
-    },
-  ];
-
-  const loadEventDates = mockEvents.map((events: IEventTypes) => ({
-    EventID: events.EventID,
-    StartDate: events.StartDate,
-    EndDate: events.EndDate,
-    EventName: events.EventName,
-    days: events.days,
-  }));
-
-  // handle navigation to events
-
-  const navigateToEvents = (path: string) => {
-    navigate({
-      to: path,
-    });
-  };
-
-  const addEventHandler = () => {};
-
   return (
     <>
+      {/* <!-- ====== Calendar Section Start ====== --> */}
       <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <header className="flex items-center justify-between bg-primary p-4 text-white">
-          <button onClick={handlePrevMonth} className="text-sm">
-            <FaAngleLeft />
-          </button>
-          <h2 className="text-xl font-semibold">
-            {format(currentMonth, 'MMMM yyyy')}
-          </h2>
-          <button onClick={handleNextMonth} className="text-sm">
-            <FaAngleRight />
-          </button>
-        </header>
-
         <table className="w-full">
           <thead>
             <tr className="grid grid-cols-7 rounded-t-sm bg-primary text-white">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <th
-                  key={day}
-                  className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5"
-                >
-                  {day}
-                </th>
-              ))}
+              <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Sunday </span>
+                <span className="block lg:hidden"> Sun </span>
+              </th>
+              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Monday </span>
+                <span className="block lg:hidden"> Mon </span>
+              </th>
+              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Tuesday </span>
+                <span className="block lg:hidden"> Tue </span>
+              </th>
+              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Wednesday </span>
+                <span className="block lg:hidden"> Wed </span>
+              </th>
+              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Thursday </span>
+                <span className="block lg:hidden"> Thur </span>
+              </th>
+              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Friday </span>
+                <span className="block lg:hidden"> Fri </span>
+              </th>
+              <th className="flex h-15 items-center justify-center rounded-tr-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Saturday </span>
+                <span className="block lg:hidden"> Sat </span>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {days.map((_, index) => (
-              <tr key={index} className="grid grid-cols-7">
-                {days.slice(index * 7, index * 7 + 7).map((date, idx) => (
-                  <td
-                    key={idx}
-                    className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                    onClick={addEventHandler}
-                  >
-                    <span className="font-medium text-black dark:text-white">
-                      {format(currentMonth, 'M') === format(date, 'M')
-                        ? format(date, 'd')
-                        : ''}
+            {/* <!-- Line 1 --> */}
+            <tr className="grid grid-cols-7">
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  1
+                </span>
+                <div className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30">
+                  <span className="group-hover:text-primary md:hidden">
+                    More
+                  </span>
+                  <div className="event invisible absolute left-2 z-99 mb-1 flex w-[200%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-meta-4 md:visible md:w-[190%] md:opacity-100">
+                    <span className="event-name text-sm font-semibold text-black dark:text-white">
+                      Redesign Website
                     </span>
-                    <div className="absolute left-0 z-99 w-full">
-                      {loadEventDates?.map((event: IEventTypes) => {
-                        const day = parseInt(format(date, 'd'));
-                        if (event.days.includes(day)) {
-                          const index = event.days.indexOf(day);
-                          return (
-                            <div
-                              key={event.EventName}
-                              className={`${index === 0 && 'ml-4 border-l-4 border-primary'} ${idx === 6 ? 'ml-4 min-w-20' : 'w-full'} sm:2 relative mt-1 min-h-12 bg-slate-100 pl-4 md:h-2`}
-                              onClick={() =>
-                                navigateToEvents(`/events/${event.EventID}`)
-                              }
-                            >
-                              {day === event.days[0] ? (
-                                <>
-                                  <p className="pt-1 text-sm font-semibold">
-                                    {event.EventName}
-                                  </p>
-                                  <p className="pt-1 text-xs font-semibold">
-                                    {format(event.StartDate, 'd') +
-                                      ' ' +
-                                      format(event.EndDate, 'MMM') +
-                                      ' - ' +
-                                      format(event.EndDate, 'd') +
-                                      ' ' +
-                                      format(event.EndDate, 'MMM')}
-                                  </p>
-                                </>
-                              ) : (
-                                <p>{}</p>
-                              )}
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            ))}
+                    <span className="time text-sm font-medium text-black dark:text-white">
+                      1 Dec - 2 Dec
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  2
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  3
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  4
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  5
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  6
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  7
+                </span>
+              </td>
+            </tr>
+            {/* <!-- Line 1 --> */}
+            {/* <!-- Line 2 --> */}
+            <tr className="grid grid-cols-7">
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  8
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  9
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  10
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  11
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  12
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  13
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  14
+                </span>
+              </td>
+            </tr>
+            {/* <!-- Line 2 --> */}
+            {/* <!-- Line 3 --> */}
+            <tr className="grid grid-cols-7">
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  15
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  16
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  17
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  18
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  19
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  20
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  21
+                </span>
+              </td>
+            </tr>
+            {/* <!-- Line 3 --> */}
+            {/* <!-- Line 4 --> */}
+            <tr className="grid grid-cols-7">
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  22
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  23
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  24
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  25
+                </span>
+                <div className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30">
+                  <span className="group-hover:text-primary md:hidden">
+                    More
+                  </span>
+                  <div className="event invisible absolute left-2 z-99 mb-1 flex w-[300%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-meta-4 md:visible md:w-[290%] md:opacity-100">
+                    <span className="event-name text-sm font-semibold text-black dark:text-white">
+                      App Design
+                    </span>
+                    <span className="time text-sm font-medium text-black dark:text-white">
+                      25 Dec - 27 Dec
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  26
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  27
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  28
+                </span>
+              </td>
+            </tr>
+            {/* <!-- Line 4 --> */}
+            {/* <!-- Line 5 --> */}
+            <tr className="grid grid-cols-7">
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  29
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  30
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  31
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  1
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  2
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  3
+                </span>
+              </td>
+              <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <span className="font-medium text-black dark:text-white">
+                  4
+                </span>
+              </td>
+            </tr>
+            {/* <!-- Line 5 --> */}
           </tbody>
         </table>
       </div>
+      {/* <!-- ====== Calendar Section End ====== --> */}
     </>
   );
 };

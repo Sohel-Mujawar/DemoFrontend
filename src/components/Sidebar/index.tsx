@@ -13,12 +13,12 @@ const sidebarRoutes = [
     icon: <PiSquaresFourLight size={22} />,
   },
   {
-    label: 'Sub Routes',
+    label: 'Form Elements',
     path: '/dashboard',
     icon: <PiSquaresFourLight size={22} />,
     subRoutes: [
       {
-        label: 'Sub Route 1',
+        label: 'Form Elements',
         path: '/dashboard',
       },
     ],

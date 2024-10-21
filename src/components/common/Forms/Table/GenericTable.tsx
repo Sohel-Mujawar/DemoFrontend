@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {FiEdit} from 'react-icons/fi';
 import {GrFormNext, GrFormPrevious} from 'react-icons/gr';
 import {MdDelete} from 'react-icons/md';
+import {IoMdEye} from 'react-icons/io';
 
 type Button<T> = {
   label: string;
@@ -15,11 +16,6 @@ export type Column<T> = {
   accessor: keyof T | ((item: T) => React.ReactNode);
   render?: (item: T) => React.ReactNode;
   className?: string;
-  buttons?: Button<T>[]; // Add buttons as an optional property
-  sortable?: boolean; // Add sortable flag
-  action?: boolean; // Add action flag
-  onEdit?: (item: T) => void; // Add edit function
-  onDelete?: (item: T) => void; // Add delete function
 };
 
 type GenericTableProps<T> = {
@@ -28,21 +24,28 @@ type GenericTableProps<T> = {
   itemsPerPage?: number;
   searchAble?: boolean;
   title?: string;
-  action?: boolean; // Add action flag
-  // Optionally pass number of items per page
-  onEdit?: (item: T) => void; // Add edit function
-  onDelete?: (item: T) => void; // Add delete function
+  sortable?: boolean; // Prop to enable sorting
+  onEdit?: (item: T) => void; // Edit function
+  onDelete?: (item: T) => void; // Delete function
+  onView?: (item: T) => void; // View function
+  showEditButton?: boolean; // Prop to show Edit button
+  showDeleteButton?: boolean; // Prop to show Delete button
+  showViewButton?: boolean; // Prop to show View button
 };
 
-const GenericTable = <T,>({
+const GenericTable: React.FC = <T,>({
   data,
   columns,
   itemsPerPage = 5,
   searchAble,
-  action,
+  sortable = false,
   title,
   onEdit: handleEdit,
   onDelete: handleDelete,
+  onView: handleView,
+  showEditButton = true, // Default to true
+  showDeleteButton = true, // Default to true
+  showViewButton = true, // Default to true
 }: GenericTableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -138,11 +141,11 @@ const GenericTable = <T,>({
                   key={index}
                   className={`min-w-[120px] px-4 py-4 font-medium text-black dark:text-white ${column.className || ''}`}
                   onClick={
-                    column.sortable
+                    sortable // Check if sortable is true
                       ? () => handleSort(column.accessor as keyof T)
                       : undefined
-                  } // Attach sorting function
-                  style={{cursor: column.sortable ? 'pointer' : 'default'}}
+                  }
+                  style={{cursor: sortable ? 'pointer' : 'default'}} // Change cursor based on sortable prop
                 >
                   {column.header}{' '}
                   {sortConfig?.key === column.accessor
@@ -152,7 +155,7 @@ const GenericTable = <T,>({
                     : null}
                 </th>
               ))}
-              {action && <th className="px-4 py-4">Action</th>}
+              <th className="px-4 py-4">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -174,40 +177,37 @@ const GenericTable = <T,>({
                         : typeof value === 'string'
                           ? value
                           : JSON.stringify(value)}
-                      {column.buttons && (
-                        <div className="mt-2 space-x-2">
-                          {column.buttons.map((button, btnIndex) => (
-                            <button
-                              key={btnIndex}
-                              onClick={() => button.onClick(item)}
-                              className={`rounded px-3 py-1 ${button.className || ''}`}
-                            >
-                              {button.icon || button.label}
-                            </button>
-                          ))}
-                        </div>
-                      )}
                     </td>
                   );
                 })}
-                {action && (
-                  <td className="px-4 py-4">
-                    <div className="space-x-2">
+                <td className="px-4 py-4">
+                  <div className="space-x-2">
+                    {showViewButton && handleView && (
                       <button
                         className="rounded px-3 py-4"
-                        onClick={() => handleEdit?.(item)}
+                        onClick={() => handleView(item)}
+                      >
+                        <IoMdEye className="h-5 w-5" />
+                      </button>
+                    )}
+                    {showEditButton && handleEdit && (
+                      <button
+                        className="rounded px-3 py-4"
+                        onClick={() => handleEdit(item)}
                       >
                         <FiEdit className="h-5 w-5" />
                       </button>
+                    )}
+                    {showDeleteButton && handleDelete && (
                       <button
                         className="rounded px-3 py-4"
-                        onClick={() => handleDelete?.(item)}
+                        onClick={() => handleDelete(item)}
                       >
                         <MdDelete className="h-5 w-5" />
                       </button>
-                    </div>
-                  </td>
-                )}
+                    )}
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
