@@ -18,7 +18,7 @@ const sidebarRoutes = [
     icon: <PiSquaresFourLight size={22} />,
     subRoutes: [
       {
-        label: 'Message Setup',
+        label: 'Sub Route 1',
         path: '/dashboard',
       },
     ],
