@@ -1,3 +1,5 @@
+import React from 'react';
+
 const NotFound404: React.FC = () => {
   return (
     <section className="dark:bg-gray-900 grid h-screen place-content-center bg-white">
@@ -7,11 +9,11 @@ const NotFound404: React.FC = () => {
             404
           </h1>
           <p className="text-gray-900 mb-4 text-3xl font-bold tracking-tight dark:text-white md:text-4xl">
-            Something's missing.
+            Something&apos;s missing.
           </p>
           <p className="text-gray-500 dark:text-gray-400 mb-4 text-lg font-light">
-            Sorry, we can't find that page. You'll find lots to explore on the
-            home page.{' '}
+            Sorry, we can&apos;t find that page&rsquo; You&apos;ll find lots to
+            explore on the home page.{' '}
           </p>
           <a
             href="#"

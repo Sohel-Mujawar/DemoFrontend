@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/lib/react-query/QueryKeys';
+import {QUERY_KEYS} from '@/lib/react-query/QueryKeys';
 import {Token, User} from '@/types';
 import axios, {AxiosError, AxiosInstance, AxiosResponse} from 'axios';
 import {jwtDecode} from 'jwt-decode';

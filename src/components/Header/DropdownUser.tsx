@@ -1,14 +1,11 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Link} from '@tanstack/react-router';
 import ClickOutside from '../ClickOutside';
 import UserOne from '../../assets/images/user/user-01.png';
-import {useAuthContext} from '@/context/AuthContext';
 import {IoIosArrowDown} from 'react-icons/io';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-
-  const {user, setToken} = useAuthContext();
 
   const handleSignOut = async () => {};
 

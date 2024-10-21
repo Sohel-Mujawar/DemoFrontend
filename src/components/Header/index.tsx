@@ -1,12 +1,11 @@
 import {Link} from '@tanstack/react-router';
-import DropdownMessage from './DropdownMessage';
-import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import LogoIcon from '../../assets/images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
 import {FiMenu, FiX} from 'react-icons/fi';
 import {LuSearch} from 'react-icons/lu';
+import React from 'react';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

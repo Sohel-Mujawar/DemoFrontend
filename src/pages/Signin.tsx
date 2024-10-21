@@ -1,6 +1,6 @@
 import {Link} from '@tanstack/react-router';
 import {FiLock, FiMail} from 'react-icons/fi';
-import SyncLoader from 'react-spinners/SyncLoader';
+import React from 'react';
 
 const SignIn: React.FC = () => {
   return (

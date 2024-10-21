@@ -1,4 +1,5 @@
 import {SearchProps} from '@/types';
+import React from 'react';
 
 const Search: React.FC<SearchProps> = ({searchQuery, onSearchChange}) => {
   return (

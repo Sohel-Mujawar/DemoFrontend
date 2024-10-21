@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {
   format,
   startOfMonth,
@@ -14,7 +14,6 @@ import {FaAngleLeft, FaAngleRight} from 'react-icons/fa6';
 // import {useSearchEvents} from '@/lib/react-query/queriesAndMutations/event';
 // import {getYearAndMonth, incrementUntilTarget} from '@/utils/utilities';
 import {useNavigate} from '@tanstack/react-router';
-import {useModal} from '@/context/ModalContext';
 
 type day = number;
 
@@ -28,7 +27,6 @@ interface IEventTypes {
 
 const Calendar = () => {
   const navigate = useNavigate();
-  const {openModal} = useModal();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const startOfMonthDate = startOfMonth(currentMonth);
   const endOfMonthDate = endOfMonth(currentMonth);
@@ -106,8 +104,7 @@ const Calendar = () => {
     });
   };
 
-  const addEventHandler = () => {
-  };
+  const addEventHandler = () => {};
 
   return (
     <>

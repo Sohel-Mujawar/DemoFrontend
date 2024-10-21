@@ -1,5 +1,5 @@
 import userThree from '@/assets/images/user/user-03.png';
-
+import React from 'react';
 const Profile = () => {
   return (
     <>

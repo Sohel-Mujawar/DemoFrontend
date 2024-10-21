@@ -1,15 +1,27 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from '@tanstack/react-router';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import {SidebarProps} from '@/types';
 import {PiSquaresFourLight} from 'react-icons/pi';
-import { FaArrowLeftLong } from 'react-icons/fa6';
-import { IoIosArrowUp } from 'react-icons/io';
+import {FaArrowLeftLong} from 'react-icons/fa6';
+import {IoIosArrowUp} from 'react-icons/io';
+
 const sidebarRoutes = [
   {
     label: 'Dashboard',
     path: '/dashboard',
     icon: <PiSquaresFourLight size={22} />,
+  },
+  {
+    label: 'Sub Routes',
+    path: '/dashboard',
+    icon: <PiSquaresFourLight size={22} />,
+    subRoutes: [
+      {
+        label: 'Message Setup',
+        path: '/dashboard',
+      },
+    ],
   },
 ];
 

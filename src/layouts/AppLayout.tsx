@@ -1,11 +1,9 @@
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
-import {useAuthContext} from '@/context/AuthContext';
 import {Outlet} from '@tanstack/react-router';
-import {useState} from 'react';
+import React, {useState} from 'react';
 
 const AppLayout = () => {
-  const {isAuthenticated} = useAuthContext();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (

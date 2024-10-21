@@ -1,5 +1,5 @@
 import {SidebarLinkGroupProps} from '@/types';
-import {useState} from 'react';
+import React, {useState} from 'react';
 
 const SidebarLinkGroup = ({
   children,

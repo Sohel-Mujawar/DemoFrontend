@@ -1,9 +1,8 @@
-import {useAuthContext} from '@/context/AuthContext';
-import {Navigate, Outlet} from '@tanstack/react-router';
+import {Outlet} from '@tanstack/react-router';
 import MenuBook from '../assets/images/logo/Menubook.png';
+import React from 'react';
 
 const AuthLayout = () => {
-
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex flex-wrap items-center">

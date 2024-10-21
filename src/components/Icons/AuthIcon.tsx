@@ -1,3 +1,5 @@
+import React from 'react';
+
 const AuthIcon = () => {
   return (
     <span className="mt-15 inline-block">
