@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useFormContext, Controller} from 'react-hook-form';
-import {DownIcon, GlobeIcon, XIcon} from '../../../icons'; // Assuming you have an XIcon for close
+import {DownIcon, GlobeIcon, XIcon} from '../../../../icons'; // Assuming you have an XIcon for close
 
 interface Option {
   value: string;

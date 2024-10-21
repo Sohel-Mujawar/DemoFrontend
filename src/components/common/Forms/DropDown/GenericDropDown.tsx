@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Controller, Control} from 'react-hook-form';
-import {DownIcon} from '../../../icons';
+import {DownIcon} from '../../../../icons';
 
 interface Option {
   value: string;

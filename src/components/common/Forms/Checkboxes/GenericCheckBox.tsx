@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 interface GenericCheckBoxProps {
   id: string;
+  name: string;
   labelText: string;
   isChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -9,6 +10,7 @@ interface GenericCheckBoxProps {
 
 const GenericCheckBox: React.FC<GenericCheckBoxProps> = ({
   id,
+  name,
   labelText,
   isChecked: isCheckedProp = false,
   onChange,
@@ -33,6 +35,7 @@ const GenericCheckBox: React.FC<GenericCheckBoxProps> = ({
           <input
             type="checkbox"
             id={id}
+            name={name}
             className="sr-only"
             checked={isChecked}
             onChange={handleChange}

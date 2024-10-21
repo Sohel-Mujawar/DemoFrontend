@@ -23,9 +23,6 @@ const GenericTextArea: React.FC<TextAreaProps> = ({
     formState: {errors},
   } = useFormContext();
 
-  // Ensure the error message is a string before rendering it
-  const errorMessage = errors[name]?.message as string | undefined;
-
   return (
     <div>
       <label className="mb-3 block text-black dark:text-white">{label}</label>
@@ -36,8 +33,8 @@ const GenericTextArea: React.FC<TextAreaProps> = ({
         disabled={disabled}
         {...register(name, validation)}
       ></textarea>
-      {errorMessage && (
-        <p className="mt-1 text-sm text-red-500">{errorMessage}</p>
+      {errors[name] && (
+        <p className="mt-1 text-sm text-red-500">{errors.root?.message}</p>
       )}
     </div>
   );
