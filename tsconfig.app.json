@@ -16,6 +16,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "strictNullChecks": true,
 
     /* Linting */
     "strict": false,
@@ -31,3 +32,4 @@
   },
   "include": ["src", "src/routes/_app/_events/.tsx"]
 }
+
