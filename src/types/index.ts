@@ -142,3 +142,130 @@ export interface LoadingErrorNoDataProps {
   hasData: boolean;
   children: React.ReactNode;
 }
+
+export interface ApiError {
+  response?: {
+    data: {
+      message: string;
+    };
+  };
+  message: string;
+}
+
+// Input type for admin registration
+export interface AdminRegistrationInput {
+  email: string;
+  phone: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  selfSide: string;
+  aadharNo?: string;
+  panNo?: string;
+  bankName: string;
+  bankAccNo: string;
+  bankIFSC: string;
+  bankBranch: string;
+  flatNo: string;
+  areaName: string;
+  landMark: string;
+  upiId?: string;
+  pinCode?: string;
+  city: string;
+  state: string;
+  dob: string; // Ensure ISO format if required
+}
+
+// Response type for admin registration
+export interface AdminRegistrationResponse {
+  message: string;
+}
+
+// Response for adminHome
+export interface AdminHomeResponse {
+  success: boolean;
+  data: {
+    totalIncome: number;
+    totalSales: number;
+    totalCommission: number;
+    totalCustomer: number;
+    topPerformers: {
+      crnNo: string;
+      firstName: string;
+      lastName: string;
+      pairCount: number | null;
+    }[];
+    newJoinees: {
+      crnNo: string;
+      firstName: string;
+      lastName: string;
+      createdAt: string; // ISO date format
+    }[];
+  };
+}
+
+// Response for CustomerList
+export interface CustomerListResponse {
+  success: boolean;
+  data: {
+    name: string;
+    crnNo: string;
+    phone: string;
+    email: string;
+    password: string; // Stored password
+    sponsorId: string | null;
+  }[];
+}
+
+// Request payload for createEPin
+export interface CreateEPinRequest {
+  crnNo: string;
+  epincount: number;
+}
+
+// Response for createEPin
+export interface CreateEPinResponse {
+  message: string;
+}
+
+// Response for getAllEPins
+export interface GetAllEPinsResponse {
+  id: string;
+  epinNo: string;
+  userId: string;
+  createdAt: string;
+  status: string; // Example: 'active', 'inactive', 'used', etc.
+}
+[];
+
+// Response for RejectEpinRequest
+export interface RejectEpinRequestResponse {
+  success: boolean;
+  message: string;
+}
+
+// Product interface representing the product data
+export interface Product {
+  id?: string; // Optional for creation
+  productType?: string;
+  productSubType?: string;
+  name: string;
+  color?: string;
+  details?: string;
+  description?: string;
+  actualPrice: number;
+  discountedPrice: number;
+  gstAmount?: number; // Calculated on backend
+  images?: string[]; // Array of image URLs
+  commissionRate?: number;
+  deliveryCharges?: number;
+}
+
+// Response for product-related operations
+export interface ProductResponse {
+  success: boolean;
+  message: string;
+  product?: Product; // For single product creation or update
+  data?: Product[]; // For fetching multiple products
+}
