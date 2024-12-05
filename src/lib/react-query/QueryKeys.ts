@@ -22,3 +22,12 @@ export const ADMIN_PRODUCT_QUERY_KEYS = {
   PRODUCTS: 'products',
   PRODUCT: 'product',
 };
+
+// customer Query Keys
+
+export const CUSTOMER_QUERY_KEYS = {
+  CUSTOMER: 'customer',
+  COMMISSION: 'commission',
+  EPINS: 'epins',
+  EPIN_REQUESTS: 'epinRequests',
+};

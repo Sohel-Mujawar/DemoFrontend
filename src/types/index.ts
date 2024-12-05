@@ -269,3 +269,37 @@ export interface ProductResponse {
   product?: Product; // For single product creation or update
   data?: Product[]; // For fetching multiple products
 }
+
+// Customer type
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  crnNo: string;
+  address?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Commission type
+export interface Commission {
+  id: string;
+  customerId: string;
+  amount: number;
+  date: string;
+  type: string; // e.g., "bonus", "referral"
+}
+
+// Epin Request Payload
+export interface EpinRequestPayload {
+  type: string; // e.g., "new_epin" or "replacement"
+  amount: number;
+}
+
+// Epin Response
+export interface EpinResponse {
+  success: boolean;
+  message: string;
+  epinId?: string; // Optional, only provided if the E-Pin is created successfully
+}
