@@ -48,3 +48,6 @@ export default tseslint.config({
   },
 })
 ```
+
+Install Dependencies :- npm install
+Start with :- npm run dev
