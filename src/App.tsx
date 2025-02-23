@@ -7,6 +7,8 @@ import QueryProvider from './lib/react-query/QueryProvider';
 import AuthContextProvider from './context/AuthContextProvider';
 import {ModalProvider} from './context/ModalContext';
 import NotFound404 from './layouts/NotFound404';
+import {RegistrationProvider} from './context/RegisterContext';
+import {Toaster} from 'react-hot-toast';
 
 // Create a new router instance
 const router = createRouter({
@@ -24,11 +26,14 @@ declare module '@tanstack/react-router' {
 const App = () => {
   return (
     <AuthContextProvider>
-      <ModalProvider>
-        <QueryProvider>
-          <RouterProvider router={router} />
-        </QueryProvider>
-      </ModalProvider>
+      <RegistrationProvider>
+        <ModalProvider>
+          <QueryProvider>
+            <Toaster position="top-center" reverseOrder={false} />
+            <RouterProvider router={router} />
+          </QueryProvider>
+        </ModalProvider>
+      </RegistrationProvider>
     </AuthContextProvider>
   );
 };

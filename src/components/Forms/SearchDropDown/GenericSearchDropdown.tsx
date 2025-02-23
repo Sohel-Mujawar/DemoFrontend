@@ -20,7 +20,8 @@ const GenericSearchDropdown: React.FC<GenericSearchDropdownProps> = ({
   options,
   defaultOption = '',
 }) => {
-  const {control, getValues} = useFormContext();
+  const {control, getValues, setError, clearErrors, formState} =
+    useFormContext();
   const [searchTerm, setSearchTerm] = useState<string>(defaultOption);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -56,19 +57,12 @@ const GenericSearchDropdown: React.FC<GenericSearchDropdownProps> = ({
     }
   }, [name, options, getValues]);
 
-  // Clear the label and value on input click
-  const handleInputClick = (onChange: (value: string) => void) => {
-    setSearchTerm(''); // Clear the input field
-    onChange(''); // Reset the form value
-    setIsOpen(true); // Open the dropdown
-  };
-
   return (
     <Controller
       name={name}
       control={control}
       defaultValue={defaultOption}
-      render={({field: {onChange, value}}) => (
+      render={({field: {onChange, value}, fieldState: {error}}) => (
         <div className="relative">
           <label className="mb-2.5 block text-black dark:text-white">
             {label}
@@ -84,10 +78,16 @@ const GenericSearchDropdown: React.FC<GenericSearchDropdownProps> = ({
               placeholder={`Search ${label}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              onClick={() => handleInputClick(onChange)} // Clear value on click
+              onClick={() => {
+                setSearchTerm(''); // Clear value on click
+                onChange(''); // Reset the form value
+                setIsOpen(true); // Open dropdown
+              }}
               onFocus={() => setIsOpen(true)}
               onBlur={() => setTimeout(() => setIsOpen(false), 200)} // Delay to handle onBlur
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+              className={`w-full rounded border-[1.5px] px-12 py-3 outline-none transition focus:border-primary ${
+                error ? 'border-primary' : 'border-stroke'
+              } dark:border-form-strokedark dark:bg-form-input dark:text-white`}
               aria-expanded={isOpen}
               aria-haspopup="true"
               aria-controls={`${name}-dropdown`}
@@ -109,7 +109,7 @@ const GenericSearchDropdown: React.FC<GenericSearchDropdownProps> = ({
                       key={option.value}
                       onMouseDown={() => {
                         onChange(option.value); // Update form value
-                        setSearchTerm(option.label); // Update searchTerm to selected option
+                        setSearchTerm(option.label); // Update searchTerm
                         setIsOpen(false); // Close dropdown
                       }}
                       className="hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer p-2"
@@ -127,6 +127,12 @@ const GenericSearchDropdown: React.FC<GenericSearchDropdownProps> = ({
               </div>
             )}
           </div>
+
+          {error && (
+            <span className="mt-1 block text-sm text-red-500">
+              {error.message}
+            </span>
+          )}
         </div>
       )}
     />

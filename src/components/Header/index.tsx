@@ -6,6 +6,7 @@ import DarkModeSwitcher from './DarkModeSwitcher';
 import {FiMenu, FiX} from 'react-icons/fi';
 import {LuSearch} from 'react-icons/lu';
 import React from 'react';
+import Logo from '@/assets/images/logo/logo.png';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -37,24 +38,14 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" to="/">
-            <img src={LogoIcon} alt="Logo" />
+            {/* <img src={Logo} alt="Logo" /> */}
           </Link>
         </div>
 
         <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
             <div className="relative">
-              <button className="absolute left-0 top-1/2 -translate-y-1/2">
-                <LuSearch
-                  className="hover:fill-primary dark:hover:fill-primary"
-                  size={22}
-                />
-              </button>
-              <input
-                type="text"
-                placeholder="Type to search..."
-                className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125"
-              />
+              <button className="absolute left-0 top-1/2 -translate-y-1/2"></button>
             </div>
           </form>
         </div>

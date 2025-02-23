@@ -1,1 +1,1 @@
-export {default as VerticalTab} from './VerticalTab';
+// export {default as VerticalTab} from './VerticalTab';

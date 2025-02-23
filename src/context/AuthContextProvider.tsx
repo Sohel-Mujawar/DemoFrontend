@@ -30,7 +30,6 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
         setToken(localToken);
         setUser(decodedToken);
         setRole(decodedToken.role);
-        setIsSuperAdmin(decodedToken.role === 'SuperAdmin');
         setIsAuthenticated(true);
       }
     }

@@ -2,30 +2,163 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from '@tanstack/react-router';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import {SidebarProps} from '@/types';
-import {PiSquaresFourLight} from 'react-icons/pi';
+import {PiNavigationArrowFill, PiSquaresFourLight} from 'react-icons/pi';
 import {FaArrowLeftLong} from 'react-icons/fa6';
-import {IoIosArrowUp} from 'react-icons/io';
-
-const sidebarRoutes = [
-  {
-    label: 'Dashboard',
-    path: '/dashboard',
-    icon: <PiSquaresFourLight size={22} />,
-  },
-  {
-    label: 'Form Elements',
-    path: '/dashboard',
-    icon: <PiSquaresFourLight size={22} />,
-    subRoutes: [
-      {
-        label: 'Form Elements',
-        path: '/dashboard',
-      },
-    ],
-  },
-];
+import {IoIosArrowDown} from 'react-icons/io';
+import {
+  NetworkIcon,
+  ProfileIcon,
+  RegistrationIcon,
+  ReportIcon,
+  WalletIcon,
+} from '@/icons';
+import {useAuthContext} from '@/context/AuthContext';
+import {BiLogoProductHunt, BiRupee} from 'react-icons/bi';
+import Logo from '../../../public/logo.png';
+import {MdEmail, MdOutlineProductionQuantityLimits} from 'react-icons/md';
+import {GrProductHunt} from 'react-icons/gr';
 
 const Sidebar = ({sidebarOpen, setSidebarOpen}: SidebarProps) => {
+  const {user} = useAuthContext();
+
+  const role = user?.user.role;
+
+  const sidebarRoutes =
+    role === 'ADMIN'
+      ? [
+          {
+            label: 'Dashboard',
+            path: '/dashboard',
+            icon: <PiSquaresFourLight size={22} />,
+          },
+          {
+            label: 'Network',
+            path: '/admin/network',
+            icon: <NetworkIcon size={22} />,
+          },
+          {
+            label: 'Registeration',
+            path: '/admin/customerregister',
+            icon: <RegistrationIcon size={22} />,
+          },
+
+          {
+            label: 'Customer List',
+            path: '/admin/customerlist',
+            icon: <PiSquaresFourLight size={22} />,
+          },
+          {
+            label: 'Epin Request',
+            path: '/admin/epinrequest',
+            icon: <PiSquaresFourLight size={22} />,
+          },
+          {
+            label: 'Share Link',
+            path: '/admin/sharelink',
+            icon: <PiSquaresFourLight size={22} />,
+          },
+
+          {
+            label: 'Sales Report',
+            path: '/admin/productsalesreport',
+            icon: <ReportIcon size={22} />,
+          },
+          {
+            label: 'Repurchase Report',
+            path: '/admin/repurchaseproduct',
+            icon: <BiRupee size={22} />,
+          },
+          {
+            label: 'Banner',
+            path: '/admin/banner',
+            icon: <PiNavigationArrowFill size={22} />,
+          },
+          {
+            label: 'Payout',
+            path: '/admin/commisionreport',
+            icon: <BiRupee size={22} />,
+            subRoutes: [
+              {
+                label: 'Paid Commission ',
+                path: '/admin/commisionreport',
+              },
+              {
+                label: 'Pending Commission ',
+                path: '/admin/pendingcommisionreport',
+              },
+              {
+                label: 'Flashout Commission ',
+                path: '/admin/flashoutcommision',
+              },
+            ],
+          },
+
+          {
+            label: 'E-Pin',
+            icon: <PiSquaresFourLight size={22} />,
+            subRoutes: [
+              {
+                label: 'Admin E-Pin',
+                path: '/admin/Epin',
+              },
+              {
+                label: 'Customer E-Pin',
+                path: '/admin/customerepin',
+              },
+            ],
+          },
+          {
+            label: 'Change Email',
+            path: '/admin/editemail',
+            icon: <MdEmail size={22} />,
+          },
+        ]
+      : // Customer
+        role === 'CUSTOMER'
+        ? [
+            {
+              label: 'Dashboard',
+              path: '/customer/dashboard',
+              icon: <PiSquaresFourLight size={22} />,
+            },
+            {
+              label: 'Registeration',
+              path: '/customer/customerregisterc',
+              icon: <RegistrationIcon size={22} />,
+            },
+            {
+              label: 'Customer Profile',
+              path: '/customer/customerprofilec',
+              icon: <ProfileIcon size={22} />,
+            },
+            {
+              label: 'Network',
+              path: '/customer/networkc',
+              icon: <NetworkIcon size={22} />,
+            },
+            {
+              label: 'Report',
+              path: '/customer/reportc',
+              icon: <ReportIcon size={22} />,
+            },
+            {
+              label: 'Share Link',
+              path: '/customer/customersidesharelink',
+              icon: <PiSquaresFourLight size={22} />,
+            },
+            {
+              label: 'E-Pin',
+              path: '/customer/epinc',
+              icon: <PiNavigationArrowFill size={22} />,
+            },
+            {
+              label: 'Repurchase Product',
+              path: '/customer/repurchaseproduct',
+              icon: <MdOutlineProductionQuantityLimits size={22} />,
+            },
+          ]
+        : [];
+
   const location = useLocation();
   const {pathname} = location;
 
@@ -82,9 +215,15 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}: SidebarProps) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <Link to="/">
-          <img src={'Logo'} alt="Logo" />
+      <div className="flex items-center justify-center gap-2 px-6 pt-4">
+        <Link
+          to="/"
+          className="bg-gray-300 hover:bg-gray-400 flex h-16 w-auto items-center justify-start space-x-4 rounded-full px-4 py-2 transition-all"
+        >
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray">
+            <img src={Logo} alt="Logo" className="object-contain" width={30} />
+          </div>
+          <h1 className="text-lg font-semibold text-gray">TMS Success</h1>
         </Link>
 
         <button
@@ -103,10 +242,6 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}: SidebarProps) => {
         {/* <!-- Sidebar Menu --> */}
         <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
           <div>
-            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              MENU
-            </h3>
-
             <ul className="mb-6 flex flex-col gap-1.5">
               {sidebarRoutes.map((route, index) =>
                 route.subRoutes ? (
@@ -131,7 +266,7 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}: SidebarProps) => {
                         >
                           {route.icon}
                           {route.label}
-                          <IoIosArrowUp
+                          <IoIosArrowDown
                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                               open && 'rotate-180'
                             }`}

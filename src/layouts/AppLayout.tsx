@@ -1,10 +1,16 @@
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
-import {Outlet} from '@tanstack/react-router';
+import {useAuthContext} from '@/context/AuthContext';
+import {Navigate, Outlet} from '@tanstack/react-router';
 import React, {useState} from 'react';
 
 const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const {isAuthenticated} = useAuthContext();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/landing" />;
+  }
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">

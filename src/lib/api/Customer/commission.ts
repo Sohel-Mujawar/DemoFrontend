@@ -1,32 +1,31 @@
-import {Customer, Commission, ApiError} from '@/types';
 import {api} from '@/utils/axios';
 
 // Fetch customer details by ID
-export const getCustomer = async (id: string): Promise<Customer> => {
+export const getCustomer = async (id) => {
   try {
-    const response = await api.get<Customer>(`/customer/home/${id}`);
-    return response.data;
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
+    const {data} = await api.get(`/customer/home/${id}`);
+    return data;
+  } catch (error) {
+    const {response} = error;
     console.error(
       'Error fetching customer:',
-      apiError.response?.data.message || apiError.message,
+      response?.data.message || error.message,
     );
-    throw apiError.response?.data || apiError;
+    throw error;
   }
 };
 
 // Fetch commissions by customer ID
-export const getCommission = async (id: string): Promise<Commission[]> => {
+export const getCommission = async (id) => {
   try {
-    const response = await api.get<Commission[]>(`/customer/commission/${id}`);
-    return response.data;
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
+    const {data} = await api.get(`/customer/commission/${id}`);
+    return data;
+  } catch (error) {
+    const {response} = error;
     console.error(
       'Error fetching commissions:',
-      apiError.response?.data.message || apiError.message,
+      response?.data.message || error.message,
     );
-    throw apiError.response?.data || apiError;
+    throw error;
   }
 };

@@ -1,25 +1,17 @@
 import React, {useState} from 'react';
 import {FiEdit} from 'react-icons/fi';
 import {GrFormNext, GrFormPrevious} from 'react-icons/gr';
-import {MdDelete} from 'react-icons/md';
-
-type Button<T> = {
-  label: string;
-  onClick: (item: T) => void;
-  className?: string;
-  icon?: React.ReactNode;
-};
+import {MdDelete, MdLogin} from 'react-icons/md';
+import {AiOutlineEye} from 'react-icons/ai';
+import {BiCopy} from 'react-icons/bi';
 
 export type Column<T> = {
   header: string;
   accessor: keyof T | ((item: T) => React.ReactNode);
   render?: (item: T) => React.ReactNode;
   className?: string;
-  buttons?: Button<T>[]; // Add buttons as an optional property
-  sortable?: boolean; // Add sortable flag
-  action?: boolean; // Add action flag
-  onEdit?: (item: T) => void; // Add edit function
-  onDelete?: (item: T) => void; // Add delete function
+  sortable?: boolean;
+  cell?: (value: T) => React.ReactNode; // or you can make cell optional
 };
 
 type GenericTableProps<T> = {
@@ -28,10 +20,11 @@ type GenericTableProps<T> = {
   itemsPerPage?: number;
   searchAble?: boolean;
   title?: string;
-  action?: boolean; // Add action flag
-  // Optionally pass number of items per page
-  onEdit?: (item: T) => void; // Add edit function
-  onDelete?: (item: T) => void; // Add delete function
+  onEdit?: (item: T) => void;
+  onDelete?: (item: T) => void;
+  onView?: (item: T) => void;
+  onCopy?: (item: T) => void;
+  onLogin?: (item: T) => void;
 };
 
 const GenericTable = <T,>({
@@ -39,10 +32,12 @@ const GenericTable = <T,>({
   columns,
   itemsPerPage = 5,
   searchAble,
-  action,
   title,
-  onEdit: handleEdit,
-  onDelete: handleDelete,
+  onEdit,
+  onDelete,
+  onView,
+  onCopy,
+  onLogin,
 }: GenericTableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,10 +48,9 @@ const GenericTable = <T,>({
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
   };
 
-  // Sorting logic
   const sortedData = React.useMemo(() => {
     const sortableData = [...data];
     if (sortConfig !== null) {
@@ -82,7 +76,6 @@ const GenericTable = <T,>({
     return sortableData;
   }, [data, sortConfig]);
 
-  // Handle sorting when header is clicked
   const handleSort = (key: keyof T) => {
     let direction: 'asc' | 'desc' = 'asc';
     if (
@@ -95,7 +88,6 @@ const GenericTable = <T,>({
     setSortConfig({key, direction});
   };
 
-  // Filter data based on search query
   const filteredData = sortedData.filter((item) =>
     columns.some((column) => {
       const value =
@@ -109,7 +101,6 @@ const GenericTable = <T,>({
     }),
   );
 
-  // Pagination logic
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
@@ -141,7 +132,7 @@ const GenericTable = <T,>({
                     column.sortable
                       ? () => handleSort(column.accessor as keyof T)
                       : undefined
-                  } // Attach sorting function
+                  }
                   style={{cursor: column.sortable ? 'pointer' : 'default'}}
                 >
                   {column.header}{' '}
@@ -152,7 +143,9 @@ const GenericTable = <T,>({
                     : null}
                 </th>
               ))}
-              {action && <th className="px-4 py-4">Action</th>}
+              {(onEdit || onDelete || onView || onCopy || onLogin) && (
+                <th className="px-4 py-4">Actions</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -174,37 +167,52 @@ const GenericTable = <T,>({
                         : typeof value === 'string'
                           ? value
                           : JSON.stringify(value)}
-                      {column.buttons && (
-                        <div className="mt-2 space-x-2">
-                          {column.buttons.map((button, btnIndex) => (
-                            <button
-                              key={btnIndex}
-                              onClick={() => button.onClick(item)}
-                              className={`rounded px-3 py-1 ${button.className || ''}`}
-                            >
-                              {button.icon || button.label}
-                            </button>
-                          ))}
-                        </div>
-                      )}
                     </td>
                   );
                 })}
-                {action && (
+                {(onEdit || onDelete || onView || onCopy || onLogin) && (
                   <td className="px-4 py-4">
-                    <div className="space-x-2">
-                      <button
-                        className="rounded px-3 py-4"
-                        onClick={() => handleEdit?.(item)}
-                      >
-                        <FiEdit className="h-5 w-5" />
-                      </button>
-                      <button
-                        className="rounded px-3 py-4"
-                        onClick={() => handleDelete?.(item)}
-                      >
-                        <MdDelete className="h-5 w-5" />
-                      </button>
+                    <div className="flex items-center space-x-2">
+                      {onView && (
+                        <button
+                          className="rounded px-3 py-4"
+                          onClick={() => onView(item)}
+                        >
+                          <AiOutlineEye className="h-5 w-5" />
+                        </button>
+                      )}
+                      {onEdit && (
+                        <button
+                          className="rounded px-3 py-4"
+                          onClick={() => onEdit(item)}
+                        >
+                          <FiEdit className="h-5 w-5" />
+                        </button>
+                      )}
+                      {onDelete && (
+                        <button
+                          className="rounded px-3 py-4"
+                          onClick={() => onDelete(item)}
+                        >
+                          <MdDelete className="h-5 w-5" />
+                        </button>
+                      )}
+                      {onCopy && (
+                        <button
+                          className="rounded px-3 py-4"
+                          onClick={() => onCopy(item)}
+                        >
+                          <BiCopy className="h-5 w-5" />
+                        </button>
+                      )}
+                      {onLogin && (
+                        <button
+                          className="rounded px-3 py-4"
+                          onClick={() => onLogin(item)}
+                        >
+                          <MdLogin className="h-5 w-5" />
+                        </button>
+                      )}
                     </div>
                   </td>
                 )}
@@ -213,7 +221,6 @@ const GenericTable = <T,>({
           </tbody>
         </table>
       </div>
-      {/* Pagination Controls */}
       <div className="mt-4 flex items-center justify-between">
         <span>
           Page {currentPage} of {totalPages}

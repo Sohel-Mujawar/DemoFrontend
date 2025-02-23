@@ -5,7 +5,7 @@ import {CUSTOMER_QUERY_KEYS} from '../QueryKeys';
 
 // Fetch customer details hook
 export const useGetCustomer = (id: string) => {
-  return useQuery<Customer>({
+  return useQuery({
     queryKey: [CUSTOMER_QUERY_KEYS.CUSTOMER],
     queryFn: () => getCustomer(id),
   });
@@ -13,7 +13,7 @@ export const useGetCustomer = (id: string) => {
 
 // Fetch customer commissions hook
 export const useGetCommission = (id: string) => {
-  return useQuery<Commission[]>({
+  return useQuery({
     queryKey: [CUSTOMER_QUERY_KEYS.COMMISSION],
     queryFn: () => getCommission(id),
   });

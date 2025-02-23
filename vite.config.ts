@@ -5,12 +5,13 @@ import {resolve} from 'path';
 
 export default defineConfig({
   plugins: [TanStackRouterVite(), viteReact()],
+  base: 'https://tmssuccess.biz/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
     },
   },
   build: {
-    chunkSizeWarningLimit: 1500,
+    chunkSizeWarningLimit: 2500,
   },
 });

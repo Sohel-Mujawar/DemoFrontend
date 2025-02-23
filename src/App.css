@@ -1,0 +1,39 @@
+.dottedBackground {
+  --dot-bg: rgb(255, 255, 255);
+  --dot-color: rgb(168, 200, 242);
+  --dot-size: 0.8px;
+  --dot-space: 8px;
+  background:
+    linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
+}
+
+.darkdottedBackground {
+  --dot-bg: rgb(0, 0, 0);
+  --dot-color: rgb(168, 200, 242);
+  --dot-size: 0.8px;
+  --dot-space: 8px;
+  background:
+    linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
+}

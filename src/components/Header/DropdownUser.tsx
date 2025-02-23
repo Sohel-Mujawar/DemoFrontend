@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
 import {Link} from '@tanstack/react-router';
 import ClickOutside from '../ClickOutside';
-import UserOne from '../../assets/images/user/user-01.png';
+import UserOne from '../../assets/images/user/user.png';
 import {IoIosArrowDown} from 'react-icons/io';
+import {QUERY_KEYS} from '@/lib/react-query/QueryKeys';
+import {useAuthContext} from '@/context/AuthContext';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const {user} = useAuthContext();
 
-  const handleSignOut = async () => {};
+  const role = user?.user.role;
+  const name = user?.user.fullname;
+
+  const handleSignOut = async () => {
+    if (localStorage.getItem(QUERY_KEYS.TOKEN)) {
+      localStorage.removeItem(QUERY_KEYS.TOKEN);
+      window.location.reload();
+    }
+  };
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -17,9 +28,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {'John Wick'}
+            {name}
           </span>
-          <span className="block text-xs">{'Manager'}</span>
+          <span className="block text-xs">{role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -38,10 +49,10 @@ const DropdownUser = () => {
         <div
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
-          <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+          {/* <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
             <li>
               <Link
-                to="/users/profile"
+                to="/"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <svg
@@ -64,7 +75,7 @@ const DropdownUser = () => {
                 My Profile
               </Link>
             </li>
-          </ul>
+          </ul> */}
           <button
             onClick={handleSignOut}
             className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

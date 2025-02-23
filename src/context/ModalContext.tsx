@@ -1,5 +1,4 @@
 /* eslint-disable */
-import InfoModal from '@/components/common/modal/ModalComponent';
 import {ReactNode} from '@tanstack/react-router';
 import React, {
   createContext,
@@ -50,7 +49,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({children}) => {
   };
 
   const executeModalAction = async () => {
-    console.log('deleting...');
+    // console.log('deleting...');
     try {
       if (modalAction) {
         await modalAction();

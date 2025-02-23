@@ -22,14 +22,23 @@ export interface IdAndToken {
 }
 
 // **User and Auth Interfaces**
+export interface decodedUser {
+  id: string;
+  email: string;
+  phone: string;
+  fullname: string;
+  password: string;
+  role: 'ADMIN' | 'CUSTOMER'; // Adjust roles if there are more
+  isActive: boolean;
+  createdAt: string; // ISO date string
+  commissionAmount: number;
+  crnNo: string;
+}
 export interface User {
-  email: string; // User's email
-  exp: number; // Expiration timestamp (usually in seconds since Unix epoch)
-  fullname: string; // User's full name
-  iat: number; // Issued-at timestamp (when the token was created, in seconds since Unix epoch)
-  id: string; // User's unique identifier (likely a string, depending on how it's generated)
-  role: string; // User's role (could be 'admin', 'user', etc.)
-  username: string;
+  role: string;
+  user: decodedUser;
+  iat: number; // Issued At (timestamp in seconds)
+  exp: number; // Expiration (timestamp in seconds)
 }
 
 export type UserRole = {
@@ -99,7 +108,7 @@ export interface SidebarLinkGroupProps {
 export type Column<T> = {
   header: string;
   accessor: keyof T;
-  cell?: (value: unknown) => React.ReactNode;
+  cell?: (value: T) => React.ReactNode | React.ReactNode;
 };
 
 export type TableProps<T> = {
@@ -152,6 +161,78 @@ export interface ApiError {
   message: string;
 }
 
+// types/customer.ts
+
+export interface CustomerDetails {
+  crnNo: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  selfSide: string;
+  aadharNo: string;
+  panNo: string;
+  bankName: string;
+  bankAccNo: string;
+  bankIFSC: string;
+  bankBranch: string;
+  flatNo: string;
+  areaName: string;
+  landMark: string;
+  pinCode: string;
+  city: string;
+  state: string;
+  upiId: string;
+  dob: Date | null;
+}
+
+export interface CustomerDetailsResponse {
+  customer: CustomerDetails;
+  totalReferrals: number;
+}
+
+export interface CustomerRegistrationPayload {
+  email: string;
+  phone: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  sponsorId: string;
+  gender?: string;
+  selfSide: string;
+  aadharNo?: string;
+  panNo?: string;
+  bankName?: string;
+  bankAccNo?: string;
+  bankIFSC?: string;
+  bankBranch?: string;
+  flatNo?: string;
+  areaName?: string;
+  landMark?: string;
+  upiId?: string;
+  pinCode?: string;
+  city?: string;
+  state?: string;
+  dob?: string;
+  productId?: string;
+  transactionId?: string;
+  fullDeliveryAddress?: string;
+  epinNo?: string;
+}
+
+export interface UserAuthenticationResponse {
+  message: string;
+  data: {
+    user: {
+      id: string;
+      email: string;
+      phone: string;
+      fullname: string;
+      role: string;
+    };
+    token: Token;
+  };
+}
+
 // Input type for admin registration
 export interface AdminRegistrationInput {
   email: string;
@@ -174,7 +255,7 @@ export interface AdminRegistrationInput {
   pinCode?: string;
   city: string;
   state: string;
-  dob: string; // Ensure ISO format if required
+  dob: string;
 }
 
 // Response type for admin registration
@@ -184,6 +265,10 @@ export interface AdminRegistrationResponse {
 
 // Response for adminHome
 export interface AdminHomeResponse {
+  totalIncome: number;
+  totalSales: number;
+  totalCommission: number;
+  totalCustomer: number;
   success: boolean;
   data: {
     totalIncome: number;
@@ -220,7 +305,6 @@ export interface CustomerListResponse {
 
 // Request payload for createEPin
 export interface CreateEPinRequest {
-  crnNo: string;
   epincount: number;
 }
 
@@ -228,14 +312,20 @@ export interface CreateEPinRequest {
 export interface CreateEPinResponse {
   message: string;
 }
+export interface CreatePurchaseResponse {
+  message: string;
+}
 
 // Response for getAllEPins
 export interface GetAllEPinsResponse {
   id: string;
   epinNo: string;
-  userId: string;
-  createdAt: string;
-  status: string; // Example: 'active', 'inactive', 'used', etc.
+  assignedToId: string | null;
+  createdAt: string; // ISO date format
+  isUsed: boolean;
+  usedAt: string | null;
+  requestId: string;
+  usedBy: string | null;
 }
 [];
 
@@ -250,14 +340,14 @@ export interface Product {
   id?: string; // Optional for creation
   productType?: string;
   productSubType?: string;
+  s3FileKey?: string;
   name: string;
-  color?: string;
-  details?: string;
-  description?: string;
+  details?: string | null;
+  description?: string | null;
   actualPrice: number;
   discountedPrice: number;
+  images?: string | null;
   gstAmount?: number; // Calculated on backend
-  images?: string[]; // Array of image URLs
   commissionRate?: number;
   deliveryCharges?: number;
 }
@@ -272,6 +362,17 @@ export interface ProductResponse {
 
 // Customer type
 export interface Customer {
+  CustomerCommissions: number;
+  MyCommission: number;
+  count: number;
+  lastCustomers: never[];
+  topCustomers: never[];
+  totalCustomers: number;
+  goldIncome: number;
+  pendingCommissions: number;
+  customer: boolean;
+  totalCommission: number;
+  totalIncome: number;
   id: string;
   name: string;
   email: string;
@@ -282,8 +383,43 @@ export interface Customer {
   updatedAt: string;
 }
 
+export interface EditEmails {
+  email: string;
+  crnNo: string;
+}
+
+export interface UpdateCustomerData {
+  crnNo?: string;
+  email: string;
+  phone: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  aadharNo: string;
+  panNo: string;
+  bankName: string;
+  bankAccNo: string;
+  bankIFSC: string;
+  bankBranch: string;
+  flatNo: string;
+  areaName: string;
+  landMark: string;
+  upiId: string;
+  pinCode: string;
+  city: string;
+  state: string;
+  dob: string;
+  password: string;
+}
 // Commission type
 export interface Commission {
+  CutomerCommissions: number;
+  MyCommission: number;
+  count: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  customer: any;
+  lastCustomers: never[];
+  topCustomers: never[];
   id: string;
   customerId: string;
   amount: number;
@@ -302,4 +438,15 @@ export interface EpinResponse {
   success: boolean;
   message: string;
   epinId?: string; // Optional, only provided if the E-Pin is created successfully
+}
+
+export interface ProductListResponse {
+  success: boolean;
+  message: string;
+  data: {
+    uerid: string;
+    productId: string;
+    paidAmount: number;
+    imageFile: string;
+  }[];
 }

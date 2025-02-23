@@ -1,63 +1,110 @@
-import {
-  ApiError,
-  CreateEPinRequest,
-  CreateEPinResponse,
-  GetAllEPinsResponse,
-  RejectEpinRequestResponse,
-} from '@/types';
 import {api} from '@/utils/axios';
 
 // Create E-Pins
-export const createEPin = async (
-  id: string,
-  payload: CreateEPinRequest,
-): Promise<CreateEPinResponse> => {
+export const createEPin = async (epincount: number) => {
   try {
-    const response = await api.post<CreateEPinResponse>(
-      `/admin/create-epin/${id}`,
-      payload,
-    );
+    const response = await api.post(`admin/epin/create-self/${epincount}`);
     return response.data;
-  } catch (error: unknown) {
-    const err = error as ApiError; // Type assertion to ApiError
+  } catch (error) {
     console.error(
       'Error in createEPin:',
-      err.response?.data.message || err.message,
+      error.response?.data.message || error.message,
     );
-    throw err.response?.data || err;
+    throw error;
   }
 };
 
 // Fetch all E-Pins
-export const getAllEPins = async (): Promise<GetAllEPinsResponse> => {
+export const getAllEPins = async () => {
   try {
-    const response = await api.get<GetAllEPinsResponse>('/admin/get-all-epins');
+    const response = await api.get('/admin/epin/adminPins');
     return response.data;
-  } catch (error: unknown) {
-    const err = error as ApiError; // Type assertion to ApiError
+  } catch (error) {
     console.error(
       'Error in getAllEPins:',
-      err.response?.data.message || err.message,
+      error.response?.data.message || error.message,
     );
-    throw err.response?.data || err;
+    throw error;
   }
 };
 
-// Reject E-Pin Request
-export const rejectEpinRequest = async (
-  id: string,
-): Promise<RejectEpinRequestResponse> => {
+export const getAdminEpins = async () => {
   try {
-    const response = await api.post<RejectEpinRequestResponse>(
-      `/admin/reject-epin/${id}`,
-    );
+    const response = await api.get('/admin/epin/adminPins');
     return response.data;
-  } catch (error: unknown) {
-    const err = error as ApiError; // Type assertion to ApiError
+  } catch (error) {
+    console.error(
+      'Error in getAdminEpins:',
+      error.response?.data.message || error.message,
+    );
+    throw error;
+  }
+};
+
+export const getCustomerEpins = async () => {
+  try {
+    const response = await api.get(`/admin/epin/customers`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error in getCustomerEpin:',
+      error.response?.data.message || error.message,
+    );
+    throw error;
+  }
+};
+
+export const getEpinRequest = async () => {
+  try {
+    const response = await api.get('/admin/epin/requests');
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error in getEpinRequest:',
+      error.response?.data.message || error.message,
+    );
+    throw error;
+  }
+};
+
+export const ApproveEpinRequest = async (
+  id: string,
+  data: {epincount: number},
+) => {
+  try {
+    const response = await api.post(`admin/epin/create/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error in ApproveEpinRequest:',
+      error.response?.data.message || error.message,
+    );
+    throw error;
+  }
+};
+// Reject E-Pin Request
+export const rejectEpinRequest = async (id: string) => {
+  try {
+    const response = await api.post(`/admin/epin/reject/${id}`);
+    return response.data;
+  } catch (error) {
     console.error(
       'Error in rejectEpinRequest:',
-      err.response?.data.message || err.message,
+      error.response?.data.message || error.message,
     );
-    throw err.response?.data || err;
+    throw error;
+  }
+};
+
+export const EpinHistory = async () => {
+  try {
+    const response = await api.get(`/admin/epin/old-requests`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Error in EpinHistory:',
+      error.response?.data.message || error.message,
+    );
+    throw error;
   }
 };

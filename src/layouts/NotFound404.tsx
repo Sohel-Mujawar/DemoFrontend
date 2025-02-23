@@ -16,8 +16,8 @@ const NotFound404: React.FC = () => {
             explore on the home page.{' '}
           </p>
           <a
-            href="#"
-            className="bg-primary-600 hover:bg-primary-800 focus:ring-primary-300 dark:focus:ring-primary-900 my-4 inline-flex rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+            href="/"
+            className="my-4 inline-flex rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary focus:outline-none focus:ring-4 focus:ring-primary dark:focus:ring-primary"
           >
             Back to Homepage
           </a>

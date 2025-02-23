@@ -20,8 +20,7 @@ export const useCreateProduct = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createProduct,
-    onSuccess: (res) => {
-      console.log('Product created successfully:', res);
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [ADMIN_PRODUCT_QUERY_KEYS.PRODUCTS],
       });
@@ -42,8 +41,7 @@ export const useUpdateProduct = () => {
   return useMutation({
     mutationFn: (data: {id: string; product: Product}) =>
       updateProduct(data.id, data.product),
-    onSuccess: (res) => {
-      console.log('Product updated successfully:', res);
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [ADMIN_PRODUCT_QUERY_KEYS.PRODUCTS],
       });
@@ -63,8 +61,7 @@ export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteProduct,
-    onSuccess: (res) => {
-      console.log('Product deleted successfully:', res);
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [ADMIN_PRODUCT_QUERY_KEYS.PRODUCTS],
       });

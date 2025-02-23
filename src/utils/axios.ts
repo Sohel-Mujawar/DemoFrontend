@@ -28,34 +28,34 @@ api.interceptors.request.use(async (req) => {
     }
   }
 
-  if (token) {
-    const user: User = jwtDecode(token.accessToken || '');
-    const isExpired = user.exp && user.exp * 1000 < Date.now();
+  // if (token) {
+  //   const user: User = jwtDecode(token.accessToken || '');
+  //   const isExpired = user.exp && user.exp * 1000 < Date.now();
 
-    if (isExpired) {
-      try {
-        const res = await unAuthenticatedApi.post('/users/refresh-token', {
-          refreshToken: token.refreshToken,
-        });
+  //   if (isExpired) {
+  //     try {
+  //       const res = await unAuthenticatedApi.post('/users/refresh-token', {
+  //         refreshToken: token.refreshToken,
+  //       });
 
-        localStorage.setItem(
-          QUERY_KEYS.TOKEN,
-          JSON.stringify({
-            accessToken: res.data.accessToken,
-            refreshToken: res.data.refreshToken,
-          }),
-        );
-        req.headers.Authorization = `Bearer ${res.data.accessToken}`;
-        token = {
-          accessToken: res.data.accessToken,
-          refreshToken: res.data.refreshToken,
-        };
-      } catch (error) {
-        console.error('Token refresh failed:', error);
-        localStorage.removeItem(QUERY_KEYS.TOKEN);
-      }
-    }
-  }
+  //       localStorage.setItem(
+  //         QUERY_KEYS.TOKEN,
+  //         JSON.stringify({
+  //           accessToken: res.data.accessToken,
+  //           refreshToken: res.data.refreshToken,
+  //         }),
+  //       );
+  //       req.headers.Authorization = `Bearer ${res.data.accessToken}`;
+  //       token = {
+  //         accessToken: res.data.accessToken,
+  //         refreshToken: res.data.refreshToken,
+  //       };
+  //     } catch (error) {
+  //       console.error('Token refresh failed:', error);
+  //       localStorage.removeItem(QUERY_KEYS.TOKEN);
+  //     }
+  //   }
+  // }
 
   return req;
 });

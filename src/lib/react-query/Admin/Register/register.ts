@@ -13,9 +13,7 @@ export const useRegisterAdmin = () => {
     AdminRegistrationInput
   >({
     mutationFn: registerAdmin,
-    onSuccess: (res) => {
-      console.log('Admin registered successfully:', res);
-    },
+    onSuccess: () => {},
     onError: (error: ApiError) => {
       console.error(
         'Failed to register admin:',

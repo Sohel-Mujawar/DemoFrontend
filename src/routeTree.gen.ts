@@ -13,17 +13,42 @@ import {createFileRoute} from '@tanstack/react-router';
 // Import Routes
 
 import {Route as rootRoute} from './routes/__root';
+import {Route as LandingImport} from './routes/_landing';
 import {Route as AuthImport} from './routes/_auth';
 import {Route as AppImport} from './routes/_app';
 import {Route as AuthSignupImport} from './routes/_auth/signup';
 import {Route as AuthSigninImport} from './routes/_auth/signin';
+import {Route as AppCustomerDashboardImport} from './routes/_app/customer/dashboard';
+import {Route as AppCustomerWalletWalletcImport} from './routes/_app/customer/_wallet/walletc';
+import {Route as AppCustomerReportReportcImport} from './routes/_app/customer/_report/reportc';
+import {Route as AppCustomerRegisterCustomerregistercImport} from './routes/_app/customer/_register/customerregisterc';
+import {Route as AppCustomerHomeHomeImport} from './routes/_app/customer/_home/home';
+import {Route as AppCustomerEpinEpincImport} from './routes/_app/customer/_epin/epinc';
+import {Route as AppCustomerCustomerprofileCustomerprofilecImport} from './routes/_app/customer/_customerprofile/customerprofilec';
+import {Route as AppCustomerNetworkNetworkcImport} from './routes/_app/customer/_Network/networkc';
+import {Route as AppAdminWalletWalletImport} from './routes/_app/admin/_wallet/wallet';
+import {Route as AppAdminRegisterCustomerregisterImport} from './routes/_app/admin/_register/customerregister';
+import {Route as AppAdminEpinEpinrequestImport} from './routes/_app/admin/_epin/epinrequest';
+import {Route as AppAdminEpinEpinImport} from './routes/_app/admin/_epin/epin';
+import {Route as AppAdminCustomerprofileCustomerProfileImport} from './routes/_app/admin/_customerprofile/customerProfile';
+import {Route as AppAdminCustomerProductsalesreportImport} from './routes/_app/admin/_customer/productsalesreport';
+import {Route as AppAdminCustomerCustomerlistImport} from './routes/_app/admin/_customer/customerlist';
+import {Route as AppAdminCustomerCommisionreportImport} from './routes/_app/admin/_customer/commisionreport';
+import {Route as AppAdminNetworkNetworkImport} from './routes/_app/admin/_Network/network';
+import {Route as AppAdminEditUpdateCustomerIdImport} from './routes/_app/admin/_edit/UpdateCustomer.$id';
 
 // Create Virtual Routes
 
 const AppIndexLazyImport = createFileRoute('/_app/')();
+const LandingLandingLazyImport = createFileRoute('/_landing/landing')();
 const AppDashboardLazyImport = createFileRoute('/_app/dashboard')();
 
 // Create/Update Routes
+
+const LandingRoute = LandingImport.update({
+  id: '/_landing',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const AuthRoute = AuthImport.update({
   id: '/_auth',
@@ -40,6 +65,14 @@ const AppIndexLazyRoute = AppIndexLazyImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any).lazy(() => import('./routes/_app/index.lazy').then((d) => d.Route));
+
+const LandingLandingLazyRoute = LandingLandingLazyImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => LandingRoute,
+} as any).lazy(() =>
+  import('./routes/_landing/landing.lazy').then((d) => d.Route),
+);
 
 const AppDashboardLazyRoute = AppDashboardLazyImport.update({
   id: '/dashboard',
@@ -61,6 +94,124 @@ const AuthSigninRoute = AuthSigninImport.update({
   getParentRoute: () => AuthRoute,
 } as any);
 
+const AppCustomerDashboardRoute = AppCustomerDashboardImport.update({
+  id: '/customer/dashboard',
+  path: '/customer/dashboard',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppCustomerWalletWalletcRoute = AppCustomerWalletWalletcImport.update({
+  id: '/customer/_wallet/walletc',
+  path: '/customer/walletc',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppCustomerReportReportcRoute = AppCustomerReportReportcImport.update({
+  id: '/customer/_report/reportc',
+  path: '/customer/reportc',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppCustomerRegisterCustomerregistercRoute =
+  AppCustomerRegisterCustomerregistercImport.update({
+    id: '/customer/_register/customerregisterc',
+    path: '/customer/customerregisterc',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppCustomerHomeHomeRoute = AppCustomerHomeHomeImport.update({
+  id: '/customer/_home/home',
+  path: '/customer/home',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppCustomerEpinEpincRoute = AppCustomerEpinEpincImport.update({
+  id: '/customer/_epin/epinc',
+  path: '/customer/epinc',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppCustomerCustomerprofileCustomerprofilecRoute =
+  AppCustomerCustomerprofileCustomerprofilecImport.update({
+    id: '/customer/_customerprofile/customerprofilec',
+    path: '/customer/customerprofilec',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppCustomerNetworkNetworkcRoute = AppCustomerNetworkNetworkcImport.update(
+  {
+    id: '/customer/_Network/networkc',
+    path: '/customer/networkc',
+    getParentRoute: () => AppRoute,
+  } as any,
+);
+
+const AppAdminWalletWalletRoute = AppAdminWalletWalletImport.update({
+  id: '/admin/_wallet/wallet',
+  path: '/admin/wallet',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppAdminRegisterCustomerregisterRoute =
+  AppAdminRegisterCustomerregisterImport.update({
+    id: '/admin/_register/customerregister',
+    path: '/admin/customerregister',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppAdminEpinEpinrequestRoute = AppAdminEpinEpinrequestImport.update({
+  id: '/admin/_epin/epinrequest',
+  path: '/admin/epinrequest',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppAdminEpinEpinRoute = AppAdminEpinEpinImport.update({
+  id: '/admin/_epin/epin',
+  path: '/admin/epin',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppAdminCustomerprofileCustomerProfileRoute =
+  AppAdminCustomerprofileCustomerProfileImport.update({
+    id: '/admin/_customerprofile/customerProfile',
+    path: '/admin/customerProfile',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppAdminCustomerProductsalesreportRoute =
+  AppAdminCustomerProductsalesreportImport.update({
+    id: '/admin/_customer/productsalesreport',
+    path: '/admin/productsalesreport',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppAdminCustomerCustomerlistRoute =
+  AppAdminCustomerCustomerlistImport.update({
+    id: '/admin/_customer/customerlist',
+    path: '/admin/customerlist',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppAdminCustomerCommisionreportRoute =
+  AppAdminCustomerCommisionreportImport.update({
+    id: '/admin/_customer/commisionreport',
+    path: '/admin/commisionreport',
+    getParentRoute: () => AppRoute,
+  } as any);
+
+const AppAdminNetworkNetworkRoute = AppAdminNetworkNetworkImport.update({
+  id: '/admin/_Network/network',
+  path: '/admin/network',
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppAdminEditUpdateCustomerIdRoute =
+  AppAdminEditUpdateCustomerIdImport.update({
+    id: '/admin/_edit/UpdateCustomer/$id',
+    path: '/admin/UpdateCustomer/$id',
+    getParentRoute: () => AppRoute,
+  } as any);
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -77,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '';
       fullPath: '';
       preLoaderRoute: typeof AuthImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/_landing': {
+      id: '/_landing';
+      path: '';
+      fullPath: '';
+      preLoaderRoute: typeof LandingImport;
       parentRoute: typeof rootRoute;
     };
     '/_auth/signin': {
@@ -100,11 +258,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardLazyImport;
       parentRoute: typeof AppImport;
     };
+    '/_landing/landing': {
+      id: '/_landing/landing';
+      path: '/landing';
+      fullPath: '/landing';
+      preLoaderRoute: typeof LandingLandingLazyImport;
+      parentRoute: typeof LandingImport;
+    };
     '/_app/': {
       id: '/_app/';
       path: '/';
       fullPath: '/';
       preLoaderRoute: typeof AppIndexLazyImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/dashboard': {
+      id: '/_app/customer/dashboard';
+      path: '/customer/dashboard';
+      fullPath: '/customer/dashboard';
+      preLoaderRoute: typeof AppCustomerDashboardImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_Network/network': {
+      id: '/_app/admin/_Network/network';
+      path: '/admin/network';
+      fullPath: '/admin/network';
+      preLoaderRoute: typeof AppAdminNetworkNetworkImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_customer/commisionreport': {
+      id: '/_app/admin/_customer/commisionreport';
+      path: '/admin/commisionreport';
+      fullPath: '/admin/commisionreport';
+      preLoaderRoute: typeof AppAdminCustomerCommisionreportImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_customer/customerlist': {
+      id: '/_app/admin/_customer/customerlist';
+      path: '/admin/customerlist';
+      fullPath: '/admin/customerlist';
+      preLoaderRoute: typeof AppAdminCustomerCustomerlistImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_customer/productsalesreport': {
+      id: '/_app/admin/_customer/productsalesreport';
+      path: '/admin/productsalesreport';
+      fullPath: '/admin/productsalesreport';
+      preLoaderRoute: typeof AppAdminCustomerProductsalesreportImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_customerprofile/customerProfile': {
+      id: '/_app/admin/_customerprofile/customerProfile';
+      path: '/admin/customerProfile';
+      fullPath: '/admin/customerProfile';
+      preLoaderRoute: typeof AppAdminCustomerprofileCustomerProfileImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_epin/epin': {
+      id: '/_app/admin/_epin/epin';
+      path: '/admin/epin';
+      fullPath: '/admin/epin';
+      preLoaderRoute: typeof AppAdminEpinEpinImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_epin/epinrequest': {
+      id: '/_app/admin/_epin/epinrequest';
+      path: '/admin/epinrequest';
+      fullPath: '/admin/epinrequest';
+      preLoaderRoute: typeof AppAdminEpinEpinrequestImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_register/customerregister': {
+      id: '/_app/admin/_register/customerregister';
+      path: '/admin/customerregister';
+      fullPath: '/admin/customerregister';
+      preLoaderRoute: typeof AppAdminRegisterCustomerregisterImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_wallet/wallet': {
+      id: '/_app/admin/_wallet/wallet';
+      path: '/admin/wallet';
+      fullPath: '/admin/wallet';
+      preLoaderRoute: typeof AppAdminWalletWalletImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_Network/networkc': {
+      id: '/_app/customer/_Network/networkc';
+      path: '/customer/networkc';
+      fullPath: '/customer/networkc';
+      preLoaderRoute: typeof AppCustomerNetworkNetworkcImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_customerprofile/customerprofilec': {
+      id: '/_app/customer/_customerprofile/customerprofilec';
+      path: '/customer/customerprofilec';
+      fullPath: '/customer/customerprofilec';
+      preLoaderRoute: typeof AppCustomerCustomerprofileCustomerprofilecImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_epin/epinc': {
+      id: '/_app/customer/_epin/epinc';
+      path: '/customer/epinc';
+      fullPath: '/customer/epinc';
+      preLoaderRoute: typeof AppCustomerEpinEpincImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_home/home': {
+      id: '/_app/customer/_home/home';
+      path: '/customer/home';
+      fullPath: '/customer/home';
+      preLoaderRoute: typeof AppCustomerHomeHomeImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_register/customerregisterc': {
+      id: '/_app/customer/_register/customerregisterc';
+      path: '/customer/customerregisterc';
+      fullPath: '/customer/customerregisterc';
+      preLoaderRoute: typeof AppCustomerRegisterCustomerregistercImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_report/reportc': {
+      id: '/_app/customer/_report/reportc';
+      path: '/customer/reportc';
+      fullPath: '/customer/reportc';
+      preLoaderRoute: typeof AppCustomerReportReportcImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/customer/_wallet/walletc': {
+      id: '/_app/customer/_wallet/walletc';
+      path: '/customer/walletc';
+      fullPath: '/customer/walletc';
+      preLoaderRoute: typeof AppCustomerWalletWalletcImport;
+      parentRoute: typeof AppImport;
+    };
+    '/_app/admin/_edit/UpdateCustomer/$id': {
+      id: '/_app/admin/_edit/UpdateCustomer/$id';
+      path: '/admin/UpdateCustomer/$id';
+      fullPath: '/admin/UpdateCustomer/$id';
+      preLoaderRoute: typeof AppAdminEditUpdateCustomerIdImport;
       parentRoute: typeof AppImport;
     };
   }
@@ -115,11 +406,51 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardLazyRoute: typeof AppDashboardLazyRoute;
   AppIndexLazyRoute: typeof AppIndexLazyRoute;
+  AppCustomerDashboardRoute: typeof AppCustomerDashboardRoute;
+  AppAdminNetworkNetworkRoute: typeof AppAdminNetworkNetworkRoute;
+  AppAdminCustomerCommisionreportRoute: typeof AppAdminCustomerCommisionreportRoute;
+  AppAdminCustomerCustomerlistRoute: typeof AppAdminCustomerCustomerlistRoute;
+  AppAdminCustomerProductsalesreportRoute: typeof AppAdminCustomerProductsalesreportRoute;
+  AppAdminCustomerprofileCustomerProfileRoute: typeof AppAdminCustomerprofileCustomerProfileRoute;
+  AppAdminEpinEpinRoute: typeof AppAdminEpinEpinRoute;
+  AppAdminEpinEpinrequestRoute: typeof AppAdminEpinEpinrequestRoute;
+  AppAdminRegisterCustomerregisterRoute: typeof AppAdminRegisterCustomerregisterRoute;
+  AppAdminWalletWalletRoute: typeof AppAdminWalletWalletRoute;
+  AppCustomerNetworkNetworkcRoute: typeof AppCustomerNetworkNetworkcRoute;
+  AppCustomerCustomerprofileCustomerprofilecRoute: typeof AppCustomerCustomerprofileCustomerprofilecRoute;
+  AppCustomerEpinEpincRoute: typeof AppCustomerEpinEpincRoute;
+  AppCustomerHomeHomeRoute: typeof AppCustomerHomeHomeRoute;
+  AppCustomerRegisterCustomerregistercRoute: typeof AppCustomerRegisterCustomerregistercRoute;
+  AppCustomerReportReportcRoute: typeof AppCustomerReportReportcRoute;
+  AppCustomerWalletWalletcRoute: typeof AppCustomerWalletWalletcRoute;
+  AppAdminEditUpdateCustomerIdRoute: typeof AppAdminEditUpdateCustomerIdRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardLazyRoute: AppDashboardLazyRoute,
   AppIndexLazyRoute: AppIndexLazyRoute,
+  AppCustomerDashboardRoute: AppCustomerDashboardRoute,
+  AppAdminNetworkNetworkRoute: AppAdminNetworkNetworkRoute,
+  AppAdminCustomerCommisionreportRoute: AppAdminCustomerCommisionreportRoute,
+  AppAdminCustomerCustomerlistRoute: AppAdminCustomerCustomerlistRoute,
+  AppAdminCustomerProductsalesreportRoute:
+    AppAdminCustomerProductsalesreportRoute,
+  AppAdminCustomerprofileCustomerProfileRoute:
+    AppAdminCustomerprofileCustomerProfileRoute,
+  AppAdminEpinEpinRoute: AppAdminEpinEpinRoute,
+  AppAdminEpinEpinrequestRoute: AppAdminEpinEpinrequestRoute,
+  AppAdminRegisterCustomerregisterRoute: AppAdminRegisterCustomerregisterRoute,
+  AppAdminWalletWalletRoute: AppAdminWalletWalletRoute,
+  AppCustomerNetworkNetworkcRoute: AppCustomerNetworkNetworkcRoute,
+  AppCustomerCustomerprofileCustomerprofilecRoute:
+    AppCustomerCustomerprofileCustomerprofilecRoute,
+  AppCustomerEpinEpincRoute: AppCustomerEpinEpincRoute,
+  AppCustomerHomeHomeRoute: AppCustomerHomeHomeRoute,
+  AppCustomerRegisterCustomerregistercRoute:
+    AppCustomerRegisterCustomerregistercRoute,
+  AppCustomerReportReportcRoute: AppCustomerReportReportcRoute,
+  AppCustomerWalletWalletcRoute: AppCustomerWalletWalletcRoute,
+  AppAdminEditUpdateCustomerIdRoute: AppAdminEditUpdateCustomerIdRoute,
 };
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
@@ -136,56 +467,195 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren);
 
+interface LandingRouteChildren {
+  LandingLandingLazyRoute: typeof LandingLandingLazyRoute;
+}
+
+const LandingRouteChildren: LandingRouteChildren = {
+  LandingLandingLazyRoute: LandingLandingLazyRoute,
+};
+
+const LandingRouteWithChildren =
+  LandingRoute._addFileChildren(LandingRouteChildren);
+
 export interface FileRoutesByFullPath {
-  '': typeof AuthRouteWithChildren;
+  '': typeof LandingRouteWithChildren;
   '/signin': typeof AuthSigninRoute;
   '/signup': typeof AuthSignupRoute;
   '/dashboard': typeof AppDashboardLazyRoute;
+  '/landing': typeof LandingLandingLazyRoute;
   '/': typeof AppIndexLazyRoute;
+  '/customer/dashboard': typeof AppCustomerDashboardRoute;
+  '/admin/network': typeof AppAdminNetworkNetworkRoute;
+  '/admin/commisionreport': typeof AppAdminCustomerCommisionreportRoute;
+  '/admin/customerlist': typeof AppAdminCustomerCustomerlistRoute;
+  '/admin/productsalesreport': typeof AppAdminCustomerProductsalesreportRoute;
+  '/admin/customerProfile': typeof AppAdminCustomerprofileCustomerProfileRoute;
+  '/admin/epin': typeof AppAdminEpinEpinRoute;
+  '/admin/epinrequest': typeof AppAdminEpinEpinrequestRoute;
+  '/admin/customerregister': typeof AppAdminRegisterCustomerregisterRoute;
+  '/admin/wallet': typeof AppAdminWalletWalletRoute;
+  '/customer/networkc': typeof AppCustomerNetworkNetworkcRoute;
+  '/customer/customerprofilec': typeof AppCustomerCustomerprofileCustomerprofilecRoute;
+  '/customer/epinc': typeof AppCustomerEpinEpincRoute;
+  '/customer/home': typeof AppCustomerHomeHomeRoute;
+  '/customer/customerregisterc': typeof AppCustomerRegisterCustomerregistercRoute;
+  '/customer/reportc': typeof AppCustomerReportReportcRoute;
+  '/customer/walletc': typeof AppCustomerWalletWalletcRoute;
+  '/admin/UpdateCustomer/$id': typeof AppAdminEditUpdateCustomerIdRoute;
 }
 
 export interface FileRoutesByTo {
-  '': typeof AuthRouteWithChildren;
+  '': typeof LandingRouteWithChildren;
   '/signin': typeof AuthSigninRoute;
   '/signup': typeof AuthSignupRoute;
   '/dashboard': typeof AppDashboardLazyRoute;
+  '/landing': typeof LandingLandingLazyRoute;
   '/': typeof AppIndexLazyRoute;
+  '/customer/dashboard': typeof AppCustomerDashboardRoute;
+  '/admin/network': typeof AppAdminNetworkNetworkRoute;
+  '/admin/commisionreport': typeof AppAdminCustomerCommisionreportRoute;
+  '/admin/customerlist': typeof AppAdminCustomerCustomerlistRoute;
+  '/admin/productsalesreport': typeof AppAdminCustomerProductsalesreportRoute;
+  '/admin/customerProfile': typeof AppAdminCustomerprofileCustomerProfileRoute;
+  '/admin/epin': typeof AppAdminEpinEpinRoute;
+  '/admin/epinrequest': typeof AppAdminEpinEpinrequestRoute;
+  '/admin/customerregister': typeof AppAdminRegisterCustomerregisterRoute;
+  '/admin/wallet': typeof AppAdminWalletWalletRoute;
+  '/customer/networkc': typeof AppCustomerNetworkNetworkcRoute;
+  '/customer/customerprofilec': typeof AppCustomerCustomerprofileCustomerprofilecRoute;
+  '/customer/epinc': typeof AppCustomerEpinEpincRoute;
+  '/customer/home': typeof AppCustomerHomeHomeRoute;
+  '/customer/customerregisterc': typeof AppCustomerRegisterCustomerregistercRoute;
+  '/customer/reportc': typeof AppCustomerReportReportcRoute;
+  '/customer/walletc': typeof AppCustomerWalletWalletcRoute;
+  '/admin/UpdateCustomer/$id': typeof AppAdminEditUpdateCustomerIdRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/_app': typeof AppRouteWithChildren;
   '/_auth': typeof AuthRouteWithChildren;
+  '/_landing': typeof LandingRouteWithChildren;
   '/_auth/signin': typeof AuthSigninRoute;
   '/_auth/signup': typeof AuthSignupRoute;
   '/_app/dashboard': typeof AppDashboardLazyRoute;
+  '/_landing/landing': typeof LandingLandingLazyRoute;
   '/_app/': typeof AppIndexLazyRoute;
+  '/_app/customer/dashboard': typeof AppCustomerDashboardRoute;
+  '/_app/admin/_Network/network': typeof AppAdminNetworkNetworkRoute;
+  '/_app/admin/_customer/commisionreport': typeof AppAdminCustomerCommisionreportRoute;
+  '/_app/admin/_customer/customerlist': typeof AppAdminCustomerCustomerlistRoute;
+  '/_app/admin/_customer/productsalesreport': typeof AppAdminCustomerProductsalesreportRoute;
+  '/_app/admin/_customerprofile/customerProfile': typeof AppAdminCustomerprofileCustomerProfileRoute;
+  '/_app/admin/_epin/epin': typeof AppAdminEpinEpinRoute;
+  '/_app/admin/_epin/epinrequest': typeof AppAdminEpinEpinrequestRoute;
+  '/_app/admin/_register/customerregister': typeof AppAdminRegisterCustomerregisterRoute;
+  '/_app/admin/_wallet/wallet': typeof AppAdminWalletWalletRoute;
+  '/_app/customer/_Network/networkc': typeof AppCustomerNetworkNetworkcRoute;
+  '/_app/customer/_customerprofile/customerprofilec': typeof AppCustomerCustomerprofileCustomerprofilecRoute;
+  '/_app/customer/_epin/epinc': typeof AppCustomerEpinEpincRoute;
+  '/_app/customer/_home/home': typeof AppCustomerHomeHomeRoute;
+  '/_app/customer/_register/customerregisterc': typeof AppCustomerRegisterCustomerregistercRoute;
+  '/_app/customer/_report/reportc': typeof AppCustomerReportReportcRoute;
+  '/_app/customer/_wallet/walletc': typeof AppCustomerWalletWalletcRoute;
+  '/_app/admin/_edit/UpdateCustomer/$id': typeof AppAdminEditUpdateCustomerIdRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/signin' | '/signup' | '/dashboard' | '/';
+  fullPaths:
+    | ''
+    | '/signin'
+    | '/signup'
+    | '/dashboard'
+    | '/landing'
+    | '/'
+    | '/customer/dashboard'
+    | '/admin/network'
+    | '/admin/commisionreport'
+    | '/admin/customerlist'
+    | '/admin/productsalesreport'
+    | '/admin/customerProfile'
+    | '/admin/epin'
+    | '/admin/epinrequest'
+    | '/admin/customerregister'
+    | '/admin/wallet'
+    | '/customer/networkc'
+    | '/customer/customerprofilec'
+    | '/customer/epinc'
+    | '/customer/home'
+    | '/customer/customerregisterc'
+    | '/customer/reportc'
+    | '/customer/walletc'
+    | '/admin/UpdateCustomer/$id';
   fileRoutesByTo: FileRoutesByTo;
-  to: '' | '/signin' | '/signup' | '/dashboard' | '/';
+  to:
+    | ''
+    | '/signin'
+    | '/signup'
+    | '/dashboard'
+    | '/landing'
+    | '/'
+    | '/customer/dashboard'
+    | '/admin/network'
+    | '/admin/commisionreport'
+    | '/admin/customerlist'
+    | '/admin/productsalesreport'
+    | '/admin/customerProfile'
+    | '/admin/epin'
+    | '/admin/epinrequest'
+    | '/admin/customerregister'
+    | '/admin/wallet'
+    | '/customer/networkc'
+    | '/customer/customerprofilec'
+    | '/customer/epinc'
+    | '/customer/home'
+    | '/customer/customerregisterc'
+    | '/customer/reportc'
+    | '/customer/walletc'
+    | '/admin/UpdateCustomer/$id';
   id:
     | '__root__'
     | '/_app'
     | '/_auth'
+    | '/_landing'
     | '/_auth/signin'
     | '/_auth/signup'
     | '/_app/dashboard'
-    | '/_app/';
+    | '/_landing/landing'
+    | '/_app/'
+    | '/_app/customer/dashboard'
+    | '/_app/admin/_Network/network'
+    | '/_app/admin/_customer/commisionreport'
+    | '/_app/admin/_customer/customerlist'
+    | '/_app/admin/_customer/productsalesreport'
+    | '/_app/admin/_customerprofile/customerProfile'
+    | '/_app/admin/_epin/epin'
+    | '/_app/admin/_epin/epinrequest'
+    | '/_app/admin/_register/customerregister'
+    | '/_app/admin/_wallet/wallet'
+    | '/_app/customer/_Network/networkc'
+    | '/_app/customer/_customerprofile/customerprofilec'
+    | '/_app/customer/_epin/epinc'
+    | '/_app/customer/_home/home'
+    | '/_app/customer/_register/customerregisterc'
+    | '/_app/customer/_report/reportc'
+    | '/_app/customer/_wallet/walletc'
+    | '/_app/admin/_edit/UpdateCustomer/$id';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren;
   AuthRoute: typeof AuthRouteWithChildren;
+  LandingRoute: typeof LandingRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
+  LandingRoute: LandingRouteWithChildren,
 };
 
 export const routeTree = rootRoute
@@ -201,14 +671,33 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/_auth"
+        "/_auth",
+        "/_landing"
       ]
     },
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
         "/_app/dashboard",
-        "/_app/"
+        "/_app/",
+        "/_app/customer/dashboard",
+        "/_app/admin/_Network/network",
+        "/_app/admin/_customer/commisionreport",
+        "/_app/admin/_customer/customerlist",
+        "/_app/admin/_customer/productsalesreport",
+        "/_app/admin/_customerprofile/customerProfile",
+        "/_app/admin/_epin/epin",
+        "/_app/admin/_epin/epinrequest",
+        "/_app/admin/_register/customerregister",
+        "/_app/admin/_wallet/wallet",
+        "/_app/customer/_Network/networkc",
+        "/_app/customer/_customerprofile/customerprofilec",
+        "/_app/customer/_epin/epinc",
+        "/_app/customer/_home/home",
+        "/_app/customer/_register/customerregisterc",
+        "/_app/customer/_report/reportc",
+        "/_app/customer/_wallet/walletc",
+        "/_app/admin/_edit/UpdateCustomer/$id"
       ]
     },
     "/_auth": {
@@ -216,6 +705,12 @@ export const routeTree = rootRoute
       "children": [
         "/_auth/signin",
         "/_auth/signup"
+      ]
+    },
+    "/_landing": {
+      "filePath": "_landing.tsx",
+      "children": [
+        "/_landing/landing"
       ]
     },
     "/_auth/signin": {
@@ -230,8 +725,84 @@ export const routeTree = rootRoute
       "filePath": "_app/dashboard.lazy.tsx",
       "parent": "/_app"
     },
+    "/_landing/landing": {
+      "filePath": "_landing/landing.lazy.tsx",
+      "parent": "/_landing"
+    },
     "/_app/": {
       "filePath": "_app/index.lazy.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/dashboard": {
+      "filePath": "_app/customer/dashboard.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_Network/network": {
+      "filePath": "_app/admin/_Network/network.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_customer/commisionreport": {
+      "filePath": "_app/admin/_customer/commisionreport.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_customer/customerlist": {
+      "filePath": "_app/admin/_customer/customerlist.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_customer/productsalesreport": {
+      "filePath": "_app/admin/_customer/productsalesreport.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_customerprofile/customerProfile": {
+      "filePath": "_app/admin/_customerprofile/customerProfile.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_epin/epin": {
+      "filePath": "_app/admin/_epin/epin.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_epin/epinrequest": {
+      "filePath": "_app/admin/_epin/epinrequest.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_register/customerregister": {
+      "filePath": "_app/admin/_register/customerregister.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_wallet/wallet": {
+      "filePath": "_app/admin/_wallet/wallet.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_Network/networkc": {
+      "filePath": "_app/customer/_Network/networkc.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_customerprofile/customerprofilec": {
+      "filePath": "_app/customer/_customerprofile/customerprofilec.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_epin/epinc": {
+      "filePath": "_app/customer/_epin/epinc.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_home/home": {
+      "filePath": "_app/customer/_home/home.ts",
+      "parent": "/_app"
+    },
+    "/_app/customer/_register/customerregisterc": {
+      "filePath": "_app/customer/_register/customerregisterc.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_report/reportc": {
+      "filePath": "_app/customer/_report/reportc.tsx",
+      "parent": "/_app"
+    },
+    "/_app/customer/_wallet/walletc": {
+      "filePath": "_app/customer/_wallet/walletc.tsx",
+      "parent": "/_app"
+    },
+    "/_app/admin/_edit/UpdateCustomer/$id": {
+      "filePath": "_app/admin/_edit/UpdateCustomer.$id.tsx",
       "parent": "/_app"
     }
   }

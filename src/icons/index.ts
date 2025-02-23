@@ -17,3 +17,34 @@ export {GrFormNext as NextIcon} from 'react-icons/gr';
 export {FaChevronDown as DownIcon} from 'react-icons/fa6';
 export {CiGlobe as GlobeIcon} from 'react-icons/ci';
 export {IoIosClose as XIcon} from 'react-icons/io';
+export {FaBullhorn, FaDollarSign, FaUserFriends, FaClock} from 'react-icons/fa';
+
+export {
+  FaArrowUpRightDots,
+  FaArrowRightLong,
+  FaXTwitter,
+} from 'react-icons/fa6';
+
+export {TbWorldWww} from 'react-icons/tb';
+
+export {
+  BiCode,
+  BiCalendar,
+  BiBrain,
+  BiMessage,
+  BiPhone,
+  BiGift,
+  BiLogoPlayStore,
+} from 'react-icons/bi';
+
+export {FaFacebook, FaInstagram, FaLinkedinIn} from 'react-icons/fa';
+
+export {GrApple} from 'react-icons/gr';
+
+export {GiHamburgerMenu} from 'react-icons/gi';
+
+export {RxCross2} from 'react-icons/rx';
+
+export {IoClose} from 'react-icons/io5';
+
+export {FaArrowLeft, FaArrowRight} from 'react-icons/fa';

@@ -1,5 +1,9 @@
-import {createEpinRequest, getEpinRequests} from '@/lib/api/Customer/epin';
-import {EpinResponse, EpinRequestPayload} from '@/types';
+import {
+  createEpinRequest,
+  getEpinRequests,
+  getEpins,
+} from '@/lib/api/Customer/epin';
+import {EpinResponse} from '@/types';
 import {useQueryClient, useMutation, useQuery} from '@tanstack/react-query';
 import {CUSTOMER_QUERY_KEYS} from '../QueryKeys';
 
@@ -9,14 +13,14 @@ export const useCreateEpinRequest = () => {
   return useMutation<
     EpinResponse,
     unknown,
-    {id: string; payload: EpinRequestPayload}
+    {id: string; paidAmount: number; imageFile: File}
   >({
-    mutationFn: ({id, payload}) => createEpinRequest(id, payload),
+    mutationFn: ({id, paidAmount, imageFile}) =>
+      createEpinRequest(id, paidAmount, imageFile),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [CUSTOMER_QUERY_KEYS.EPIN_REQUESTS],
       }); // Invalidate cache after creation
-      console.log('E-Pin request created successfully');
     },
     onError: (error) => {
       console.error('Failed to create E-Pin request:', error);
@@ -26,8 +30,15 @@ export const useCreateEpinRequest = () => {
 
 // Hook to fetch E-Pin requests by user ID
 export const useGetEpinRequests = (id: string) => {
-  return useQuery<EpinResponse[]>({
+  return useQuery({
     queryKey: [CUSTOMER_QUERY_KEYS.EPIN_REQUESTS],
     queryFn: () => getEpinRequests(id),
+  });
+};
+
+export const useGetEpins = (id: string) => {
+  return useQuery({
+    queryKey: [CUSTOMER_QUERY_KEYS.EPINS],
+    queryFn: () => getEpins(id),
   });
 };
